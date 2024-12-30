@@ -1,0 +1,78 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:EClinicMaui"
+             x:Class="EClinicMaui.App">
+    <Application.Resources>
+        
+        <ResourceDictionary>
+
+            <Style TargetType="Frame">
+                <Setter Property="Padding"
+                        Value="5"></Setter>
+                <Setter Property="Margin"
+                        Value="2"></Setter>
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Dark=#191919}"/>
+            </Style>
+
+            <Style x:Key="PatientNameStyle"
+                    TargetType="Label">
+                <Setter Property="HorizontalOptions"
+                        Value="EndAndExpand"></Setter>
+                <Setter Property="FontSize"
+                        Value="Large"></Setter>
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Dark=#FFFFFF,Light=#0D507F}"></Setter>
+            </Style>
+
+             <Style x:Key="SubPatientInfoStyle"
+                    TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="Medium"></Setter>
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Dark=#FFFFFF,Light=#503026}"></Setter>
+            </Style>
+
+   <Style x:Key="SubPatientInfoStyle2"
+                    TargetType="Label">
+                <Setter Property="FontSize"
+                        Value="Small"></Setter>
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Dark=#FFFFFF,Light=#503026}"></Setter>
+            </Style>
+
+            <Style x:Key="LabelInfo"
+                    TargetType="Label">
+                <Setter Property="FontAttributes"
+                        Value="Bold"></Setter>
+                <Setter Property="Margin"
+                        Value="0,5,5,5"></Setter>
+            </Style>
+
+            <Style x:Key="RequiredStar"
+                    TargetType="Label">
+                <Setter Property="Margin"
+                        Value="0,10,0,0"></Setter>
+                <Setter Property="TextColor"
+                        Value="Red"></Setter>
+                <Setter Property="FontSize"
+                        Value="Micro"></Setter>
+                <Setter Property="Text"
+                        Value="*"></Setter>
+            </Style>
+
+            <Style x:Key="ErrorLabel"
+                    TargetType="Label">
+                <Setter Property="IsVisible"
+                        Value="False"></Setter>
+                <Setter Property="TextColor"
+                        Value="Red"></Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+
+
+    </Application.Resources>
+</Application>
