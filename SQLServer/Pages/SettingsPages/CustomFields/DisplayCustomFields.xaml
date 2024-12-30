@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.SettingsPages.CustomFields.DisplayCustomFields"
+             Title="Custom Fields"
+              FlowDirection="LeftToRight"
+             >
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Margin="4">
+
+            <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" Source="loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+            <Button x:Name="ResetAllCustomFields" Clicked="RestAllCustomFields_Click" Text="Delete All Custom Fields" Margin="15" BackgroundColor="#BD362F" TextColor="White"></Button>
+
+            <StackLayout x:Name="CustomFieldsStack" Orientation="Vertical"></StackLayout>
+
+            <Button Text="Add New Custom Field" TextColor="White" BackgroundColor="#8BBF61" Margin="20" x:Name="AddCustomField" Clicked="AddCustomField_Clicked"></Button>
+
+            <Button Text="Get fields from other doctor" Margin="20" x:Name="GetCustomFieldsFromOtherDoctorBtn" Clicked="GetCustomFieldsFromOtherDoctorBtn_Clicked"></Button>
+
+            <Image  x:Name="LoadingImg2" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" Source="loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

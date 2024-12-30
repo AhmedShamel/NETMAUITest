@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"                          
+             x:Class="EClinicMaui.SQLServer.Pages.MainPage"
+             Title="E-Clinic"
+       
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#191919}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <StackLayout Orientation="Vertical">
+
+        <StackLayout FlowDirection="LeftToRight" x:Name="SQLServerStack" IsVisible="False" VerticalOptions="CenterAndExpand" >
+            <ScrollView>
+                <StackLayout Orientation="Vertical">
+
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="10">
+
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="StackLayout">
+                                    <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                                </Style>
+
+
+
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+
+                        <Image WidthRequest="100" HeightRequest="100" Margin="10" Source="icon.png" HorizontalOptions="Center"></Image>
+
+                        <StackLayout x:Name="ChangeToMultiuserStack" Orientation="Vertical" IsVisible="False">
+                            <Label Text="Write the information of SQL server"></Label>
+                            <Entry x:Name="IPAddressTB" Placeholder="Server IP Address .."></Entry>
+                            <Entry x:Name="PortTB" Placeholder="Port number .."></Entry>
+                            <Entry x:Name="UserNameTB" Placeholder="User ..."></Entry>
+                            <Entry x:Name="PasswordTB" Placeholder="Password ...."></Entry>
+                            <Entry x:Name="DatabaseNameTB" Placeholder="Database name ...."></Entry>
+                            <Button x:Name="SQLServerOkBtn"  Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF" Text="Ok"></Button>
+                        </StackLayout>
+
+                        <StackLayout x:Name="SQLServerLoadingStack" Orientation="Vertical" IsVisible="False">
+                            <Label Text="Checking Database connection .." FontSize="Medium" HorizontalOptions="Center"></Label>
+                            <Image Margin="0,0,0,0" x:Name="SQLServerLoadingImg" HeightRequest="50" WidthRequest="50" Source="loading.gif" IsAnimationPlaying="True" HorizontalOptions="Center"></Image>
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout FlowDirection="LeftToRight"  x:Name="FTPServerStack" IsVisible="False" VerticalOptions="CenterAndExpand" >
+            <ScrollView>
+
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="10">
+
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="StackLayout">
+                                    <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                                </Style>
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+
+                        <Image WidthRequest="100" HeightRequest="100" Margin="10" Source="icon.png" HorizontalOptions="Center"></Image>
+
+                        <StackLayout x:Name="FTPServerInfoStack" Orientation="Vertical" IsVisible="False">
+                            <Label Text="Please write the information of FTP server"></Label>
+                            <Entry x:Name="FTPAddressTB" Placeholder="Server IP Address .."></Entry>
+                            <Entry x:Name="FTPUserNameTB" Placeholder="User name .."></Entry>
+                            <Entry x:Name="FTPPasswordTB" Placeholder="Password ...."></Entry>
+                            <Button x:Name="FTPServerOkBtn"  Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF" Text="Ok"></Button>
+                        </StackLayout>
+
+                        <StackLayout x:Name="FTPServerLoadingStack" Orientation="Vertical" IsVisible="True">
+
+                            <Label Text="Checking the Files connection ..." FontSize="Medium" HorizontalOptions="Center"></Label>
+                            <Image Margin="0,0,0,0" x:Name="FTPServerLoadingImg" HeightRequest="50" WidthRequest="50" Source="loading.gif" IsAnimationPlaying="True" HorizontalOptions="Center"></Image>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+
+        <StackLayout FlowDirection="LeftToRight"  x:Name="LoginStack" Orientation="Vertical" IsVisible="False" VerticalOptions="CenterAndExpand" >
+
+            <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="10">
+
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="StackLayout">
+                            <Setter Property="Orientation" Value="Horizontal"></Setter>
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                        </Style>
+
+
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+
+                <Image WidthRequest="100" HeightRequest="100" Margin="10" Source="icon.png" HorizontalOptions="Center"></Image>
+
+                <StackLayout x:Name="LoginInfoStack" Orientation="Vertical">
+
+                    <Label Text="Login to E-Clinic" FontSize="Medium" HorizontalOptions="Center"></Label>
+
+                    <Entry x:Name="NameTB" HorizontalOptions="FillAndExpand" Placeholder="Enter your name ..."></Entry>
+
+                    <Entry x:Name="LoginPasswordTB" HorizontalOptions="FillAndExpand" Placeholder="Write your specialty ..." IsPassword="True"></Entry>
+
+                    <Button x:Name="LoginBtn" Text="Login" HorizontalOptions="CenterAndExpand" TextColor="White" BackgroundColor="#06AADF" Padding="10"></Button>
+
+                </StackLayout>
+
+                <Label Text="We are checking login information .." x:Name="LoginStatusLabel" FontSize="Medium" HorizontalOptions="Center"></Label>
+                <Image x:Name="LoginLoadingImg" HeightRequest="50" WidthRequest="50" Source="loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+
+            </StackLayout>
+
+        </StackLayout>
+
+        <Grid x:Name="MainPageStack" VerticalOptions="FillAndExpand">
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <StackLayout Margin="0" x:Name="NavStack" Grid.Row="0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="70" BackgroundColor="#1C96EC">
+                <Image Margin="10,0,10,0" WidthRequest="30" HeightRequest="30" Source="menuicon.png" HorizontalOptions="Start">
+                   
+                </Image>
+                <Image x:Name="AddPatientBtn" Margin="5,0,10,0" WidthRequest="30" HeightRequest="30" Source="plussign.png" HorizontalOptions="Start">
+                    
+                </Image>
+
+                <Entry Margin="5,0,10,0" HeightRequest="40" VerticalOptions="Center"  x:Name="SearchNameTB" TextChanged="SearchForPatient_TextChanged" Placeholder="Search" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="End"></Entry>
+            </StackLayout>
+
+            <StackLayout FlowDirection="LeftToRight" Grid.Row="1" Margin="2" VerticalOptions="FillAndExpand">
+
+                <Frame Margin="0" Padding="2">
+                    <StackLayout x:Name="TableShowOptionsStack" Orientation="Vertical" VerticalOptions="CenterAndExpand" Padding="0">
+
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="10,0,10,0">
+                            <Picker x:Name="TableShowOptionsCB" HorizontalOptions="FillAndExpand" SelectedIndexChanged="TableShowOptionsCB_SelectedIndexChanged" Title="Select which patients">
+
+                            </Picker>
+                            <DatePicker x:Name="DateOfVisitingDP" IsVisible="False" DateSelected="ShowWhichDateDP_DateSelected">
+                                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                            </DatePicker>
+                        </StackLayout>
+
+                        <Label x:Name="MatchesLK"  HorizontalOptions="CenterAndExpand" FontSize="Small" Margin="0"></Label>
+
+                        <Image  x:Name="LoadingHeaderImg" HeightRequest="40" WidthRequest="40" HorizontalOptions="Center" Source="loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+
+            <CollectionView FlowDirection="LeftToRight" Grid.Row="2" x:Name="PatientsGridView" IsVisible="False" Scrolled="PatientsGridView_Scrolled" VerticalScrollBarVisibility="Always">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <StackLayout Orientation="Vertical" Margin="3">
+
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="PatientsGridView_PatientOption"></TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" >
+                                    <Label Text="{Binding BirthDateString}" FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
+                                    <Label Text="{Binding Gender}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="Center" TextColor="#503026" />
+                                    <Label Text="{Binding MaritalStatus}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="End" TextColor="#503026" />
+                                </StackLayout>
+
+                                <StackLayout IsVisible="{Binding ContactInfo}" Orientation="Horizontal">
+                                    <Label Text="{Binding Job}" FontSize="Small" TextColor="#503026" />
+                                    <Label Text="{Binding Address}" Margin="10,0,0,0" FontSize="Small" TextColor="#503026" />
+                                    <Label Text="{Binding PhoneNumber}" Margin="10,0,0,0"  FontSize="Small" TextColor="#503026" />
+                                </StackLayout>
+
+                                <StackLayout  Orientation="Horizontal">
+                                    <Label Text="No. Visits:"></Label>
+                                    <Label Text="{Binding VisitCount}" FontAttributes="Bold"></Label>
+                                    <Label Margin="10,0,0,0" Text="No. Operations:" IsVisible="{Binding NeedOperations}"></Label>
+                                    <Label Text="{Binding OperationsCount}" IsVisible="{Binding NeedOperations}" FontAttributes="Bold"></Label>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView Grid.Row="2" x:Name="DoctorVisitsGridView" VerticalScrollBarVisibility="Always" Scrolled="DoctorVisitsGridView_Scrolled">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout Orientation="Vertical" Margin="3">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="DoctorVisitsGridView_PatientOption"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" >
+                                <Label Text="{Binding BirthDateString}" FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
+                                <Label Text="{Binding Gender}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="Center" TextColor="#503026" />
+                                <Label Text="{Binding MaritalStatus}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="End" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding ContactInfo}" Orientation="Horizontal">
+                                <Label Text="{Binding Job}" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding Address}" Margin="10,0,0,0" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding PhoneNumber}" Margin="10,0,0,0"  FontSize="Small" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout  Orientation="Horizontal">
+                                <Label Text="diagnosis:"></Label>
+                                <Label Text="{Binding Diagnosis}" FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                            <StackLayout  Orientation="Horizontal">
+                                <Label Text="No. Visits:"></Label>
+                                <Label Text="{Binding VisitCount}" FontAttributes="Bold"></Label>
+                                <Label Margin="10,0,0,0" Text="No. Operations:" IsVisible="{Binding NeedOperations}"></Label>
+                                <Label Text="{Binding OperationsCount}" IsVisible="{Binding NeedOperations}" FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView Grid.Row="2"  x:Name="WaitingsGridView" IsVisible="False" VerticalScrollBarVisibility="Always" Scrolled="WaitingsGridView_Scrolled">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout Orientation="Vertical" Margin="3">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="WaitingsGridView_PatientOption"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <StackLayout>
+                                <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding ForwardFromName}" FontSize="Medium" HorizontalOptions="Start"></Label>
+                                    <Label Text="{Binding ArrivalDateString}" FontSize="Medium" HorizontalOptions="EndAndExpand" TextColor="#503026"></Label>
+                                </StackLayout>
+
+                                <Label Text="{Binding Notes}" FontSize="Medium"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" >
+                                <Label Text="{Binding BirthDateString}" FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
+                                <Label Text="{Binding Gender}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="Center" TextColor="#503026" />
+                                <Label Text="{Binding MaritalStatus}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="End" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding ContactInfo}" Orientation="Horizontal">
+                                <Label Text="{Binding Job}" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding Address}" Margin="10,0,0,0" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding PhoneNumber}" Margin="10,0,0,0"  FontSize="Small" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout  Orientation="Horizontal">
+                                <Label Text="No. Visits:"></Label>
+                                <Label Text="{Binding VisitCount}" FontAttributes="Bold"></Label>
+                                <Label Margin="10,0,0,0" Text="No. Operations:" IsVisible="{Binding NeedOperations}"></Label>
+                                <Label Text="{Binding OperationsCount}" IsVisible="{Binding NeedOperations}" FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView Grid.Row="2"   x:Name="SecretaryVisitsGridView" IsVisible="False" Scrolled="SecretaryVisitsGridView_Scrolled">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout Orientation="Vertical" Margin="3">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SecretaryVisitsGridView_Tapped"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <StackLayout>
+                                <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                                <Label Text="{Binding Notes}" FontSize="Medium"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal" >
+                                <Label Text="{Binding BirthDateString}" FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
+                                <Label Text="{Binding Gender}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="Center" TextColor="#503026" />
+                                <Label Text="{Binding MaritalStatus}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="End" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout IsVisible="{Binding ContactInfo}" Orientation="Horizontal">
+                                <Label Text="{Binding Job}" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding Address}" Margin="10,0,0,0" FontSize="Small" TextColor="#503026" />
+                                <Label Text="{Binding PhoneNumber}" Margin="10,0,0,0"  FontSize="Small" TextColor="#503026" />
+                            </StackLayout>
+
+                            <StackLayout  Orientation="Horizontal">
+                                <Label Text="No. Visits:"></Label>
+                                <Label Text="{Binding VisitCount}" FontAttributes="Bold"></Label>
+                                <Label Margin="10,0,0,0" Text="Time of arrival: "></Label>
+                                <Label Text="{Binding ArrivalDate,StringFormat='{0:hh:mm tt}'}" FontAttributes="Bold"></Label>
+
+                                <Label Margin="10,0,0,0" ClassId="EnteredStatus" PropertyChanged="EnteredStatus_PropertyChanged"  Padding="2" TextColor="White" Text="{Binding IsEnteredString}" FontAttributes="Bold"></Label>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

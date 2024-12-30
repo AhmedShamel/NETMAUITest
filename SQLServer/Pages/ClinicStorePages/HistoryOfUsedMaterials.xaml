@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.ClinicStorePages.HistoryOfUsedMaterials"
+             FlowDirection="LeftToRight"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <CollectionView x:Name="UsedMaterialsGrid" Margin="10"  Scrolled="UsedMaterialsGrid_Scrolled">
+        <CollectionView.Header>
+
+            <StackLayout Orientation="Vertical">
+
+                <Frame>
+
+                    <StackLayout Orientation="Vertical">
+                        <Frame>
+                            <Entry x:Name="SearchTB" Placeholder="Search for patient ..." TextChanged="SearchTB_TextChanged"></Entry>
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Picker x:Name="WhichDoctorCB" Title="Select which user" SelectedIndexChanged="WhichItemsCB_SelectedIndexChanged">
+
+                                </Picker>
+
+                                <Picker x:Name="TableShowOptions" Title="Select which user" SelectedIndexChanged="WhichItemsCB_SelectedIndexChanged">
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>All time</x:String>
+                                            <x:String>In specific dates</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+
+                            </StackLayout>
+
+                        </Frame>
+
+                        <Frame x:Name="SpecificDateFrame" IsVisible="False">
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Vertical">
+                                    <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Start date" FontSize="Small"></Label>
+                                    <DatePicker x:Name="FromDate" HorizontalOptions="FillAndExpand" DateSelected="Date_DateSelected">
+                                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                    </DatePicker>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Vertical">
+                                    <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="End date" FontSize="Small"></Label>
+                                    <DatePicker x:Name="ToDate" HorizontalOptions="FillAndExpand" DateSelected="Date_DateSelected">
+                                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                    </DatePicker>
+                                </StackLayout>
+
+                            </StackLayout>
+
+
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Total used: "></Label>
+                                    <Label x:Name="TotalUsedLK" FontAttributes="Bold"></Label>
+                                </StackLayout>
+
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Available in store: "></Label>
+                                    <Label x:Name="AvailableInStoreLK" FontAttributes="Bold"></Label>
+                                </StackLayout>
+
+                                <StackLayout>
+                                    <Label x:Name="TotalMatchesLK"></Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+
+                                    <Label x:Name="MaterialsUsedCountLK" FontAttributes="Bold"></Label>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+
+                    </StackLayout>
+
+                </Frame>
+
+                <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" Source="loadingtwo.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+            </StackLayout>
+
+        </CollectionView.Header>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame>
+                    <StackLayout Orientation="Vertical" Margin="3">
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+
+                        <StackLayout>
+                            <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}" HorizontalOptions="Center"></Label>
+                        </StackLayout>
+
+                        <StackLayout IsVisible="{Binding ShowDoctorName}">
+                            <Label Text="{Binding DoctorName,StringFormat='Added by: {0}'}" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Quantity: " HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding Quantity}" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding Unit}" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                        </StackLayout>
+
+                        <Label Text="{Binding Date,StringFormat='Date of use: {0:yyyy-MM-dd}'}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+
+        <CollectionView.Footer>
+            <Image  x:Name="LoadingFooterImg" HeightRequest="30" WidthRequest="30" Source="loadingtwo.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+        </CollectionView.Footer>
+
+    </CollectionView>
+
+
+</ContentPage>

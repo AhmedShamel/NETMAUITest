@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.ExpensesPages.ExpenseDetials"
+             Title="Clinic Expenses"
+              FlowDirection="LeftToRight"
+               xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <!--<Setter Property="Margin" Value="0,-12,0,0"></Setter>-->
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <!--<Setter Property="Margin" Value="0,-12,0,0"></Setter>-->
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <CollectionView x:Name="ExpensesGrid" Margin="10" >
+        <CollectionView.Header>
+
+            <StackLayout Orientation="Vertical">
+                <Button Text="Add payment" TextColor="White" BackgroundColor="#8BBF61" Margin="20" Clicked="AddExpenseBtn_Click"></Button>
+
+                <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" Source="loadingtwo.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+                <Frame>
+                    <StackLayout Orientation="Vertical" BackgroundColor="{AppThemeBinding Dark=#191919,Light=AliceBlue}">
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="No. payments: "></Label>
+                            <Label x:Name="TotalMatches" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Total Cost: "></Label>
+                            <Label x:Name="TotalExpensesLK" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Total paid cost: "></Label>
+                            <Label x:Name="TotalPaidCostLK" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Total remaining cost: "></Label>
+                            <Label x:Name="TotalRemainingCostLK" FontAttributes="Bold" TextColor="red"></Label>
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </Frame>
+
+            </StackLayout>
+
+
+        </CollectionView.Header>
+
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+
+                <Frame Margin="3">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+
+                        <Label Text="{Binding RowNumber,StringFormat='Payment: {0}'}" FontAttributes="Bold"></Label>
+                        <Label Text="{Binding PaidCost,StringFormat='Paid cost: {0}'}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        <Label Text="{Binding Notes, StringFormat='Notes: {0}'}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"></Label>
+                        <Label Text="{Binding ExpensesDate,StringFormat='Date: {0:yyyy-MM-dd}'}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                    </StackLayout>
+                </Frame>
+
+
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+
+
+
+</ContentPage>

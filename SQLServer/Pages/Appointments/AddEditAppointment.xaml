@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="EClinicMaui.SQLServer.Pages.Appointments.AddEditAppointment"
+              FlowDirection="LeftToRight"
+             >
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#191919}" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+
+        <StackLayout Margin="10" Orientation="Vertical">
+
+
+            <Frame x:Name="WhichUserFrame" IsVisible="False">
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource LabelInfo}" Text="Select user" FontSize="Small"></Label>
+                    <Picker x:Name="WhichDoctorCB" Title="Select user">
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Vertical">
+                        <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Date and Time" FontSize="Small"></Label>
+                        <StackLayout>
+                            <DatePicker x:Name="AppointmentDate" HorizontalOptions="FillAndExpand">
+                                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                            </DatePicker>
+
+                            <TimePicker x:Name="AppointmentTime">
+                                <TimePicker.Format>hh:mm tt</TimePicker.Format>
+                            </TimePicker>
+                        </StackLayout>
+
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Date and Time" FontSize="Small"></Label>
+                    <Entry x:Name="NotesTB" Placeholder="Notes ..."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Button x:Name="Btn" Text="Save" TextColor="White" BackgroundColor="#00AEDB" Margin="20"></Button>
+
+            <Image  x:Name="LoadingImg" VerticalOptions="Center" HeightRequest="30" WidthRequest="30" Source="Loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+            
+            <CollectionView x:Name="AppointmentsGrid" Margin="10"  VerticalScrollBarVisibility="Always" IsVisible="False">
+
+                <CollectionView.Header>
+                    <StackLayout Orientation="Vertical">
+
+                        <Frame x:Name="AppointmentsGridHeader">
+                            <StackLayout Orientation="Vertical">
+                                <Frame>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label x:Name="TotalMatches" FontAttributes="Bold"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+
+                            </StackLayout>
+                        </Frame>
+
+                    </StackLayout>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame VerticalOptions="FillAndExpand">
+                            <StackLayout Orientation="Vertical" Margin="3">
+
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label FontSize="Small" HorizontalOptions="Start" Text="Time: "></Label>
+                                    <Label FontSize="Small" FontAttributes="Bold" HorizontalTextAlignment="Start" Text="{Binding Appointment,StringFormat='{0:yyyy-MM-dd hh:mm tt}'}"></Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding IsEnteredString, StringFormat='Entered: {0}'}" TextColor="{Binding EnteredStyle}" HorizontalOptions="EndAndExpand" FontSize="Small"></Label>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label FontSize="Medium" HorizontalOptions="Start" Text="Notes: " />
+                                    <Label FontSize="Medium" HorizontalOptions="Start" FontAttributes="Bold" Text="{Binding Notes}" />
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

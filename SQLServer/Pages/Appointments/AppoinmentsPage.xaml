@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.Appointments.AppoinmentsPage"
+             Title="Appointments"
+             FlowDirection="LeftToRight">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header row -->
+            <RowDefinition Height="*"/>
+            <!-- Scrollable content row -->
+        </Grid.RowDefinitions>
+
+        <StackLayout x:Name="HeaderStack"
+                Grid.Row="0"
+                Orientation="Vertical">
+
+            <Grid Padding="2"
+                  ColumnDefinitions="*,*">
+                  
+                <Frame Grid.Column="0"
+                       CornerRadius="5">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            Margin="1"
+                            HorizontalOptions="Center"
+                            Text="Start date"
+                            FontSize="Small"></Label>
+                        <DatePicker x:Name="FromDate" DateSelected="Date_DateSelected"
+                                    HorizontalOptions="CenterAndExpand">
+                            <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                        </DatePicker>
+                    </StackLayout>
+
+                </Frame>
+
+                <Frame Grid.Column="1"
+                       CornerRadius="5">
+                    <StackLayout Orientation="Vertical">
+                        <Label Margin="1"
+                               HorizontalOptions="Center"
+                               Text="End date"
+                               FontSize="Small"></Label>
+                        <DatePicker x:Name="ToDate" DateSelected="Date_DateSelected"
+                                    HorizontalOptions="CenterAndExpand">
+                            <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                        </DatePicker>
+                    </StackLayout>
+
+                </Frame>
+
+            </Grid>
+
+            <Frame x:Name="WhichUserFrame"
+                    IsVisible="False">
+                <StackLayout Orientation="Vertical"
+                        Padding="0"
+                        Margin="0">
+                    <Label Style="{StaticResource LabelInfo}"
+                            Text="Select user"
+                            FontSize="Small"></Label>
+                    <Picker x:Name="WhichUserCB"
+                            Title="Select user">
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource LabelInfo}"
+                            Text="Search for appointment"></Label>
+
+                    <Picker x:Name="SearchByCB"
+                            Title="Search by: "
+                            VerticalTextAlignment="Start"
+                            HorizontalTextAlignment="Start">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Search by name</x:String>
+                                <x:String>Search by phone</x:String>
+                                <x:String>Search by appointment notes</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+
+                    <Entry x:Name="SearchTB"
+                            Placeholder="Enter patient name..."
+                            TextChanged="SearchTB_TextChanged"></Entry>
+
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Label x:Name="TotalMatches"
+                            FontAttributes="Bold"></Label>
+                </StackLayout>
+            </Frame>
+
+            <Image  x:Name="LoadingImg"
+                    HeightRequest="30"
+                    WidthRequest="30"
+                    Source="loading.gif"
+                    IsAnimationPlaying="True"
+                    IsVisible="False"></Image>
+
+        </StackLayout>
+
+        <CollectionView Grid.Row="1"
+                x:Name="AppointmentsGrid"
+                Margin="10"
+                Scrolled="AppointmentsGrid_Scrolled"
+                VerticalScrollBarVisibility="Always">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Frame ClassId="{Binding Id}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTap"/>
+                        </Frame.GestureRecognizers>
+
+                        <VerticalStackLayout Margin="3">
+
+                            <Label Text="{Binding Name}"
+                                    Style="{StaticResource PatientNameStyle}"></Label>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Small"
+                                        FontAttributes="Bold"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{Binding Appointment,StringFormat='Time: {0:yyyy-MM-dd hh:mm tt}'}"></Label>
+                                <Label Text="{Binding WhatsAppMessageString}"
+                                        TextColor="{Binding WhatsAppMessageStyle}"
+                                        FontSize="Small"
+                                        HorizontalOptions="EndAndExpand"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="Small"
+                                        HorizontalOptions="Start"
+                                        FontAttributes="Bold"
+                                        Text="{Binding DoctorName,StringFormat='Appointment for: {0}'}"/>
+                                <Label Text="{Binding IsEnteredString, StringFormat='Entered: {0}'}"
+                                        TextColor="{Binding EnteredStyle}"
+                                        HorizontalOptions="EndAndExpand"
+                                        FontSize="Small"></Label>
+                            </StackLayout>
+
+                            <Label FontSize="Medium"
+                                    HorizontalOptions="Start"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Notes,StringFormat='Notes: {0}'}"/>
+
+                            <VerticalStackLayout ClassId="StacksToHide"
+                                    IsVisible="False">
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding BirthDateString}"
+                                            HorizontalOptions="Start"
+                                            Style="{StaticResource SubPatientInfoStyle}"/>
+                                    <Label Text="{Binding Gender}"
+                                            Margin="15,0,0,0"
+                                            HorizontalOptions="Center"
+                                            Style="{StaticResource SubPatientInfoStyle}"/>
+                                    <Label Text="{Binding MaritalStatus}"
+                                            Margin="15,0,0,0"
+                                            HorizontalOptions="End"
+                                            Style="{StaticResource SubPatientInfoStyle}"/>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Job}"
+                                            Style="{StaticResource SubPatientInfoStyle2}"/>
+                                    <Label Text="{Binding Address}"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource SubPatientInfoStyle2}"/>
+                                    <Label ClassId="PhoneNumber"
+                                            Text="{Binding PhoneNumber}"
+                                            Margin="10,0,0,0"
+                                            Style="{StaticResource SubPatientInfoStyle2}"/>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding VisitCount,StringFormat='No. Visits: {0}'}"
+                                            FontAttributes="Bold"></Label>
+                                    <Label Margin="10,0,0,0"
+                                            Text="{Binding OperationsCount,StringFormat='No. Operations: {0}'}"
+                                            IsVisible="{Binding NeedOperations}"></Label>
+                                </StackLayout>
+
+                            </VerticalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <Image  x:Name="LoadingFooterImg"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="loading.gif"
+                        IsAnimationPlaying="True"
+                        IsVisible="False"></Image>
+            </CollectionView.Footer>
+
+        </CollectionView>
+
+
+    </Grid>
+
+
+
+
+</ContentPage>

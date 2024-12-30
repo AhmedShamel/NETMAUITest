@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.SettingsPages.VisitsSettings"             
+             Title="Visits Page Settings"
+              FlowDirection="LeftToRight"
+             >
+
+
+
+    <ScrollView>
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                            <Label Margin="0,0,0,12" FontSize="Medium" FontAttributes="Bold" Text="Which fields you want to show in visit page?"></Label>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                <Setter Property="Margin" Value="5"></Setter>
+                            </Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Margin" Value="0,5,0,0"></Setter>
+                                <Setter Property="HorizontalOptions" Value="StartAndExpand"></Setter>
+                            </Style>
+                            <Style TargetType="CheckBox">
+                                <Setter Property="HorizontalOptions" Value="End"></Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+
+                    <StackLayout>
+                        <Label Text="Chief complaint">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="CCCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="History of present illness ">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="HPICB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Review of other systems">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="OSystemsCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Select tooth(or teeth)">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="NeedTeethMapCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Blood pressure">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="PresureCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Pulse rate">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="PulseRateCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Body temperature">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="TemperatureCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Respiratory rate">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="RespiratoryRateCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Hydration status">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="HydrationCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Spo2">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="Spo2CB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Weight">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="WeightCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Height">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="HeightCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Body mass index">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="BMICB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="laboratory tests">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="LabTestsCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Imaging tests">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="ImagingTestsCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Diagnosis">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="DiagnosisCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Treatment">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="TreatmentCB"></CheckBox>
+                    </StackLayout>
+
+
+                    <StackLayout>
+                        <Label Text="Is the visit free?">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="FreeVisitCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Is the visit review?">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="VisitReviewCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Is referred from other doctor?">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="ReferredFromCB"></CheckBox>
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Visit Cost">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="VisitCostCB" PropertyChanged="VisitCostCB_PropertyChanged"></CheckBox>
+
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Text="Discount Cost">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="DiscountCostCB"></CheckBox>
+                    </StackLayout>
+
+
+                    <StackLayout>
+                        <Label Text="Paid Cost">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="PaidCostCB"></CheckBox>
+                    </StackLayout>
+
+                </StackLayout>
+
+
+                <Button x:Name="SaveAll" Clicked="SaveVisitsSettings_Click" Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF" Text="Save"></Button>
+                <Image Margin="0,0,0,0" x:Name="LoadingImg" HeightRequest="20" WidthRequest="20" IsVisible="False" Source="loading.gif" IsAnimationPlaying="True"></Image>
+
+            </StackLayout>
+        </Frame>
+
+    </ScrollView>
+
+</ContentPage>

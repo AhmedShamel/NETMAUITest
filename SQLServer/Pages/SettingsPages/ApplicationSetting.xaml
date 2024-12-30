@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.SettingsPages.ApplicationSetting"
+             Title="Application Settings"
+             FlowDirection="LeftToRight">
+
+    <ScrollView>
+        <Frame>
+            <StackLayout Orientation="Vertical">
+                <Label Margin="5"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       Text="Enter the following information"></Label>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation"
+                                        Value="Vertical"></Setter>
+                                <Setter Property="Margin"
+                                        Value="5"></Setter>
+                            </Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Margin"
+                                        Value="5"></Setter>
+                            </Style>
+                            <Style TargetType="CheckBox">
+                                <Setter Property="HorizontalOptions"
+                                        Value="End"></Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Frame>
+
+                        <StackLayout>
+                            <Label Text="Your Name"
+                                   HorizontalOptions="Start"></Label>
+                            <Entry x:Name="NameTB"
+                                   HorizontalOptions="FillAndExpand"></Entry>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Frame>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Are you surgeon?">
+                              
+                            </Label>
+                            <CheckBox HorizontalOptions="End"
+                                      x:Name="NeedOperationsCheckBox"></CheckBox>
+                        </StackLayout>
+                    </Frame>
+                    <Frame>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Do you want to display full age?">
+                             
+                            </Label>
+                            <CheckBox HorizontalOptions="End"
+                                      x:Name="NeedFullAgeCeckBox"></CheckBox>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="Date Format"
+                                   HorizontalOptions="Start"></Label>
+                            <Picker x:Name="DateFormatCB"
+                                    HorizontalOptions="FillAndExpand"
+                                    Title="Select date format">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>year/month/day</x:String>
+                                        <x:String>day/month/year</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="Page size"
+                                   HorizontalOptions="Start"></Label>
+                            <Entry x:Name="PageSizeTB"
+                                   HorizontalOptions="FillAndExpand"></Entry>
+                        </StackLayout>
+
+                    </Frame>
+
+
+                </StackLayout>
+
+                <Button x:Name="SaveAll"
+                
+                        Margin="20,20,20,20"
+                        TextColor="White"
+                        BackgroundColor="#06AADF"
+                        Text="Save"></Button>
+                <Image Margin="0,0,0,0"
+                       x:Name="LoadingImg"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       IsVisible="False"
+                       Source="loading.gif"
+                       IsAnimationPlaying="True"></Image>
+            </StackLayout>
+        </Frame>
+
+    </ScrollView>
+
+</ContentPage>

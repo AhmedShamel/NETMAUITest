@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.ExpensesPages.AddPayment"
+              FlowDirection="LeftToRight"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Margin="10">
+
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="PaidCostTB" HorizontalOptions="FillAndExpand" Keyboard="Numeric" Completed="PaidCostTB_Completed" Placeholder="Paid cost ....."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout>
+                    <Entry x:Name="NotesTB" Placeholder="Notes ..."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Date of expense"></Label>
+                    <DatePicker x:Name="ExpensesDateDP">
+                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                    </DatePicker>
+                </StackLayout>
+            </Frame>
+
+            <Button x:Name="AddOrSaveBtn" Text="Add" TextColor="White" BackgroundColor="#8BBF61" Margin="20" IsVisible="False"></Button>
+            <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" Source="loadingtwo.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

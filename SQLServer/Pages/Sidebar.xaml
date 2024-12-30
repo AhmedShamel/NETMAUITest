@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.Sidebar">
+
+
+
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu">
+            <ScrollView>
+                
+                <VerticalStackLayout>
+
+                    <StackLayout>
+                        <Image Source="menuimage.png" HorizontalOptions="FillAndExpand"></Image>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="StackLayout">
+                                    <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                    <Setter Property="VerticalOptions" Value="FillAndExpand"></Setter>
+                                    <Setter Property="Padding" Value="20,10,0,10"></Setter>
+                                    <Setter Property="Spacing" Value="20"></Setter>
+                                </Style>
+
+                                <Style TargetType="Image">
+                                    <Setter Property="WidthRequest" Value="40"></Setter>
+                                    <Setter Property="HeightRequest" Value="40"></Setter>
+                                    <Setter Property="VerticalOptions" Value="Start"></Setter>
+                                </Style>
+
+                                <Style TargetType="Label">
+                                    <Setter Property="FontSize" Value="Small"></Setter>
+                                    <Setter Property="VerticalOptions" Value="End"></Setter>
+                                    <Setter Property="Margin" Value="0,0,0,10"></Setter>
+                                </Style>
+                                <Style x:Key="LabelInfo" TargetType="Label">
+                                    <Setter Property="FontAttributes" Value="Bold"></Setter>
+                                    <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                                </Style>
+
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+
+                        <StackLayout x:Name="UserNameStack">
+                            <Image Source="userlogo.png"></Image>
+                            <Label x:Name="UserNameLabel"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToApplicationSettingsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="settingsicon.png"></Image>
+                            <Label x:Name="ApplicationSettingsLabel" Text="Application Settings"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="MedicalHistoryStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToHxSettingsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="hxicon.png"></Image>
+                            <Label x:Name="MedicalHistoryLabel" Text="Medical History Settings"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToVisitsSettingsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="visitssettings.png"></Image>
+                            <Label x:Name="VisitsSettingsLabel" Text="Visits Settings"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="OperationsSettingsStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToOperationsSettingsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="operationssettings.png"></Image>
+                            <Label Text="Operations Settings"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="getListOfVisitsToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToVisitsSerachPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="visitsserachicon.png"></Image>
+                            <Label Text="Search in visits"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="getListOfOperationsToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToOperationsSearchPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="operationsserachicon.png"></Image>
+                            <Label Text="Search in operations"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="ClinicExpenseToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToExpenses"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="expensesicon.png"></Image>
+                            <Label Text="Clinic expenses"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="ClinicMaterialsStoreToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToMaterialsStorePage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="materialsstoreicon.png"></Image>
+                            <Label Text="Clinic materials store"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="SearchInPatientDebtsStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToSearchInPatientsDebts"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="debticon.png"></Image>
+                            <Label Text="Search in patients debts"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="searchInApointmentsToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToAppoinments"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="appoinmenticon.png"></Image>
+                            <Label Text="Appoinments"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="statisticsToolStripMenuItem">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToStatisticsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="statisticsicon.png"></Image>
+                            <Label x:Name="StatisticsLabel" Text="Statistics"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="FavoritesSearchesStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToStatisticscostsOfFavoritesSearches"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="favoritessearchesicon.png"></Image>
+                            <Label Text="Costs of favorites searches"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="CustomFieldStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToCustomFieldsPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="customfieldicon.png"></Image>
+                            <Label Text="Custom Fields"></Label>
+                        </StackLayout>
+
+                 
+
+                        <StackLayout>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToAboutPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="abouticon.png"></Image>
+                            <Label Text="About"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="LogoutStack">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="GoToLoginPage"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Image Source="logoutlogo.png"></Image>
+                            <Label Text="Logout"></Label>
+                        </StackLayout>
+
+                    </StackLayout>
+
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+
+</FlyoutPage>

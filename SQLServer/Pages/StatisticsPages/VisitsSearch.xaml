@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.StatisticsPages.VisitsSearch"
+             Title="Search in visits"
+             FlowDirection="LeftToRight"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header row -->
+            <RowDefinition Height="*"/>
+            <!-- Scrollable content row -->
+        </Grid.RowDefinitions>
+
+
+        <StackLayout Grid.Row="0"
+                     Orientation="Vertical">
+            <Label Margin="1"
+                   Text="Specify the beginning date and the end date."></Label>
+            <Label Margin="1"
+                   TextColor="#506DA1"
+                   Text="If you want to detect the date of the first patient's visit and the date of the last patient's visit, click here">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DetectDates_LinkClicked"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+                <Grid Padding="2"
+                      ColumnDefinitions="*,*">
+                    <Frame Grid.Column="0"
+                           CornerRadius="5">
+                        <StackLayout Orientation="Vertical">
+                            <Label
+                                Margin="1"
+                                HorizontalOptions="Center"
+                                Text="Start date"
+                                FontSize="Small"></Label>
+                            <DatePicker x:Name="FromDate"
+                                        HorizontalOptions="CenterAndExpand">
+                                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                            </DatePicker>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Frame Grid.Column="1"
+                           CornerRadius="5">
+                        <StackLayout Orientation="Vertical">
+                            <Label Margin="1"
+                                   HorizontalOptions="Center"
+                                   Text="End date"
+                                   FontSize="Small"></Label>
+                            <DatePicker x:Name="ToDate"
+                                        HorizontalOptions="CenterAndExpand">
+                                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                            </DatePicker>
+                        </StackLayout>
+
+                    </Frame>
+
+                </Grid>
+
+                <Frame x:Name="WhichUserFrame"
+                       IsVisible="False">
+                    <StackLayout Orientation="Vertical">
+                        <Label Style="{StaticResource LabelInfo}"
+                               Text="Select user"
+                               HorizontalOptions="FillAndExpand"
+                               FontSize="Small"></Label>
+                        <Picker x:Name="WhichUserCB"
+                                Title="Select which user">
+
+                        </Picker>
+                    </StackLayout>
+                </Frame>
+
+                <Frame>
+                    <StackLayout Orientation="Vertical">
+
+                        <Label Style="{StaticResource LabelInfo}"
+                               Text="Search by:"
+                               HorizontalOptions="Start"
+                               FontSize="Small"></Label>
+
+                        <Picker x:Name="SearchByCB"
+                                HorizontalOptions="FillAndExpand"
+                                Title="Search by">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Patient Name</x:String>
+                                    <x:String>Chief complaint</x:String>
+                                    <x:String>Diagnosis</x:String>
+                                    <x:String>Treatment</x:String>
+                                    <x:String>Notes</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+
+                        <Entry x:Name="SearchInVisitsTB"
+                               HorizontalOptions="FillAndExpand"
+                               Placeholder="Serach text .."></Entry>
+
+
+
+                    </StackLayout>
+                </Frame>
+
+                <Frame>
+                    <StackLayout Orientation="Vertical">
+                        <Label x:Name="TotalMatchesLabel"
+                               Margin="2"></Label>
+                        <Button x:Name="GetVisitsBtn"
+                                Clicked="GetVisitsBtn_Clicked"
+                                Text="Search"
+                                Margin="2"
+                                TextColor="White"
+                                BackgroundColor="#06AADF"></Button>
+                    </StackLayout>
+                </Frame>
+        
+        </StackLayout>
+
+
+        <CollectionView x:Name="VisitsGridView"
+                        Grid.Row="1"
+                        Margin="10"
+                        VerticalScrollBarVisibility="Always"
+                        Scrolled="VisitsGridView_Scrolled">
+
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame>
+                        <StackLayout Orientation="Vertical"
+                                     Margin="3">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Visits_Tab"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <StackLayout>
+                                <Label Text="{Binding Name}"
+                                       Style="{StaticResource PatientNameStyle}"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding BirthDateString}"
+                                       HorizontalOptions="Start"
+                                       Style="{StaticResource SubPatientInfoStyle}"/>
+                                <Label Text="{Binding Gender}"
+                                       Margin="15,0,0,0"
+                                       HorizontalOptions="Center"
+                                       Style="{StaticResource SubPatientInfoStyle}"/>
+                                <Label Text="{Binding MaritalStatus}"
+                                       Margin="15,0,0,0"
+                                       HorizontalOptions="End"
+                                       Style="{StaticResource SubPatientInfoStyle}"/>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Job}"
+                                       Style="{StaticResource SubPatientInfoStyle2}"/>
+                                <Label Text="{Binding Address}"
+                                       Margin="10,0,0,0"
+                                       Style="{StaticResource SubPatientInfoStyle2}"/>
+                                <Label Text="{Binding PhoneNumber}"
+                                       Margin="10,0,0,0"
+                                       Style="{StaticResource SubPatientInfoStyle2}"/>
+                            </StackLayout>
+
+                            <Label Text="{Binding ChiefComplaint, StringFormat='CC: {0}'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="{Binding Diagnosis, StringFormat='Diagnosis: {0}'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="{Binding Treatment,StringFormat='Treatment: {0}'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="{Binding DateOfVisiting, StringFormat='Date: {0:yyyy-MM-dd}'}"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="FillAndExpand"></Label>
+
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <StackLayout>
+                    <Image  x:Name="LoadingImg"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Source="loading.gif"
+                            IsAnimationPlaying="True"
+                            IsVisible="False"></Image>
+                </StackLayout>
+            </CollectionView.Footer>
+        </CollectionView>
+
+    </Grid>
+
+
+
+
+</ContentPage>

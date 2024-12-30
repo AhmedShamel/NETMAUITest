@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.SettingsPages.OperationsSettings"              
+             Title="Operations Page Settings"
+              FlowDirection="LeftToRight"
+             >
+
+    <ScrollView>
+        <Frame>
+            <StackLayout Orientation="Vertical">
+            <Label Margin="0,0,0,12" FontSize="Medium" FontAttributes="Bold" Text="Which fields you want to show in operation page?"></Label>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                <Setter Property="Margin" Value="5"></Setter>
+                            </Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Margin" Value="0,5,0,0"></Setter>
+                                <Setter Property="HorizontalOptions" Value="StartAndExpand"></Setter>
+                            </Style>
+                            <Style TargetType="CheckBox">
+                                <Setter Property="HorizontalOptions" Value="End"></Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+
+                    <StackLayout>
+                        <Label Text="Name of assistant">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="AssistantNameCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Name of anesthetist">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="AnesthetistNameCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Type of surgery">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="SurgeryTypeCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Site of surgery">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="SurgerySiteCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Location of surgery">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="SurgeryLocationCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Type of anesthesia">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="AnesthesiaTypeCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Operation place">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="OperationPlaceCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Is histopathological sample sent for H/P exam?">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="HPExamCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Operation follow up">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="OperationFollowUpCB"></CheckBox>
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Operation cost">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SetField"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <CheckBox x:Name="OperationCostCB"></CheckBox>
+                    </StackLayout>
+
+                </StackLayout>
+
+                <Button x:Name="SaveAll" Clicked="SaveSettings_Click" Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF" Text="Save"></Button>
+                <Image Margin="0,0,0,0" x:Name="LoadingImg" HeightRequest="20" WidthRequest="20" IsVisible="False" Source="loading.gif" IsAnimationPlaying="True"></Image>
+
+            </StackLayout>
+        </Frame>
+
+    </ScrollView>
+
+
+</ContentPage>

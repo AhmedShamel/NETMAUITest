@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.StatisticsPages.Statistics"
+             Title="Statistics"
+              FlowDirection="LeftToRight"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#191919}" />
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Margin" Value="0,-5,0,0"></Setter>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Margin" Value="0,-5,0,0"></Setter>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="Start"></Setter>
+                <Setter Property="Margin" Value="5,10,0,0"></Setter>
+            </Style>
+
+            <Style x:Key="InfoLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="Margin" Value="5,10,0,0"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView x:Name="MainScroller">
+            <StackLayout Orientation="Vertical">
+                <Label Margin="5,5,5,5" Text="In order to calculate the statistics, you must specify two dates: the beginning date and the end date. Also, you should specify how many days off you take in the week and which day(s)."></Label>
+                <Label Margin="5,5,5,15" TextColor="#506DA1" Text="If you want to detect the date of the first patient visit and the date of the last patient's visit, click here">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DetectDates_LinkClicked"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Frame Margin="1">
+
+                    <StackLayout Orientation="Vertical">
+
+                        <Frame Margin="0" Padding="0">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Beginning date:" FontSize="Small"></Label>
+                                <DatePicker x:Name="FromDate">
+                                    <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                </DatePicker>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Margin="0" Padding="0">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Ending date:" FontSize="Small"></Label>
+                                <DatePicker x:Name="ToDate">
+                                    <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                </DatePicker>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame x:Name="WhichUserFrame" IsVisible="False" Margin="0" Padding="0">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Select user" FontSize="Small"></Label>
+                                <Picker x:Name="WhichUserCB" Title="Select which user">
+
+                                </Picker>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame>
+                            <StackLayout Orientation="Vertical" Margin="0" Padding="0">
+                                <StackLayout.Resources>
+                                    <ResourceDictionary>
+                                        <Style TargetType="StackLayout">
+                                            <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                        </Style>
+                                    </ResourceDictionary>
+                                </StackLayout.Resources>
+                                <StackLayout>
+                                    <Label Text="No. holidays in the week:"></Label>
+                                    <Picker x:Name="DaysOffCount" SelectedIndexChanged="DaysOffCount_SelectedIndexChanged" Title="No. holidays">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>0</x:String>
+                                                <x:String>1</x:String>
+                                                <x:String>2</x:String>
+                                                <x:String>3</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout x:Name="FirstDayStack" IsVisible="False">
+                                    <Label Text="First day:"></Label>
+                                    <Picker x:Name="FirstDayCombo" Title="Select day">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Saturday</x:String>
+                                                <x:String>Sunday</x:String>
+                                                <x:String>Monday</x:String>
+                                                <x:String>Tuesday</x:String>
+                                                <x:String>Wednesday</x:String>
+                                                <x:String>Thursday</x:String>
+                                                <x:String>Friday</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout x:Name="SecondDayStack" IsVisible="False">
+                                    <Label Text="Second day:"></Label>
+                                    <Picker x:Name="SecondDayCombo" Title="Select day">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Saturday</x:String>
+                                                <x:String>Sunday</x:String>
+                                                <x:String>Monday</x:String>
+                                                <x:String>Tuesday</x:String>
+                                                <x:String>Wednesday</x:String>
+                                                <x:String>Thursday</x:String>
+                                                <x:String>Friday</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout x:Name="ThirdDayStack" IsVisible="False">
+                                    <Label Text="Third day:"></Label>
+                                    <Picker x:Name="ThirdDayCombo" Title="Select day">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Saturday</x:String>
+                                                <x:String>Sunday</x:String>
+                                                <x:String>Monday</x:String>
+                                                <x:String>Tuesday</x:String>
+                                                <x:String>Wednesday</x:String>
+                                                <x:String>Thursday</x:String>
+                                                <x:String>Friday</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                        
+                        <Button x:Name="CalculateBtn" Clicked="CalculateBtn_Click" Text="Calculate" Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF"></Button>
+                        <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" Source="Loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+                    </StackLayout>
+
+                </Frame>
+
+                <Frame Padding="1,0,0,1">
+
+                    <StackLayout x:Name="StatisticsStack" Orientation="Vertical" IsVisible="False">
+
+                        <StackLayout.Resources>
+                            <ResourceDictionary>
+                                <Style TargetType="StackLayout">
+                                    <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                </Style>
+                            </ResourceDictionary>
+                        </StackLayout.Resources>
+
+                        <StackLayout>
+                            <Label Text="Total number of patients:"></Label>
+                            <Label x:Name="TotalPatients" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Total working days:"></Label>
+                            <Label x:Name="TotalWorkingDays" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Total number of patients visits:"></Label>
+                            <Label x:Name="TotalVisits" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Average number of patients visits per day:"></Label>
+                            <Label x:Name="VisitsPerDay" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="FreeVisitsStack" IsVisible="False">
+                            <Label Text="No. free visits:"></Label>
+                            <Label x:Name="FreeVisits" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="ReviewVisitsStack" IsVisible="False">
+                            <Label Text="No. review visits:"></Label>
+                            <Label x:Name="ReviewVisits" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="OperationsInfoStack" Orientation="Vertical" IsVisible="False">
+
+                            <StackLayout.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="StackLayout">
+                                        <Setter Property="Orientation" Value="Horizontal"></Setter>
+                                    </Style>
+                                </ResourceDictionary>
+                            </StackLayout.Resources>
+
+                            <StackLayout>
+                                <Label Text="Total number of operations:"></Label>
+                                <Label x:Name="TotalOperationsValue" Style="{StaticResource InfoLabel}"></Label>
+                            </StackLayout>
+
+                            <StackLayout>
+                                <Label Text="No. operations in clinic:"></Label>
+                                <Label x:Name="ClinicOpValue" Style="{StaticResource InfoLabel}"></Label>
+                            </StackLayout>
+
+                            <StackLayout>
+                                <Label Text="No. operations in general hospital:"></Label>
+                                <Label x:Name="OpInGeneralValue" Style="{StaticResource InfoLabel}"></Label>
+                            </StackLayout>
+
+                            <StackLayout>
+                                <Label Text="No. operations in private hospital:"></Label>
+                                <Label x:Name="OpInPrivateValue" Style="{StaticResource InfoLabel}"></Label>
+                            </StackLayout>
+
+                            <StackLayout>
+                                <Label Text="No. operations in other place:"></Label>
+                                <Label x:Name="OpInOtherPlaceValue" Style="{StaticResource InfoLabel}"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+
+                        <StackLayout x:Name="VisitCostStack">
+                            <Label Text="Total cost of visits:"></Label>
+                            <Label x:Name="VisitsCostsValue" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="DiscountCostStack">
+                            <Label Text="Total cost of discounts:"></Label>
+                            <Label x:Name="DiscountCostValue" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalCostOfVisitsWithDiscountsStack">
+                            <Label Text="Total cost of visits - discounts:"></Label>
+                            <Label x:Name="TotalCostOfVisitsWithDiscountsValue" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalPaidCostStack">
+                            <Label Text="Total paid costs:"></Label>
+                            <Label x:Name="TotalPaidCostLK" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalRemainingCostStack">
+                            <Label Text="Total patients debts costs:" TextColor="Red"></Label>
+                            <Label x:Name="TotalRemainingCostLK" Style="{StaticResource InfoLabel}" TextColor="Red"></Label>
+                        </StackLayout>
+
+
+                        <StackLayout x:Name="OperationCostStack">
+                            <Label Text="Total cost of operations:"></Label>
+                            <Label x:Name="OperationsCostsValue" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalCostStack">
+                            <Label Text="Profit:"></Label>
+                            <Label x:Name="TotalProfitLK" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalCostOfUsedMaterialsFrame">
+                            <Label Text="Cost of used materials: "></Label>
+                            <Label x:Name="TotalCostOfUsedMaterialsLK" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalProfit_TotalCostOfUsedMaterialsFrame">
+                            <Label Text="Profit - Cost of used materials: "></Label>
+                            <Label x:Name="TotalProfit_TotalCostOfUsedMaterialsLK" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalClinicPaidExpensesStack">
+                            <Label Text="Paid expenses:"></Label>
+                            <Label x:Name="TotalClinicPaidExpensesLK" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="TotalProfitWithoutDebtsStack">
+                            <Label Text="Profit - Paid expenses:"></Label>
+                            <Label x:Name="TotalProfitWithoutDebtsLK" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="Profit_PaidExpenses_CostOfUsedMaterialsFrame" IsVisible="False">
+                            <Label Text="Profit - Paid expenses - materials cost: " HorizontalOptions="Start"></Label>
+                            <Label x:Name="Profit_PaidExpenses_CostOfUsedMaterialsLK" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout x:Name="UserPercentageOfProfitFrame">
+                            <Label Text="User percentage of profit: "></Label>
+                            <Label x:Name="UserPercentageOfProfitLK"></Label>
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Text="Percentage of male patients:"></Label>
+                            <Label x:Name="MalePatients" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                        <StackLayout Margin="0,0,0,20">
+                            <Label Text="Percentage of female patients: "></Label>
+                            <Label x:Name="FemalePatients" Style="{StaticResource InfoLabel}"></Label>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>

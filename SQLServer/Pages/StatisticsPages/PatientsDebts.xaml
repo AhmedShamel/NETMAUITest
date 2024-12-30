@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.StatisticsPages.PatientsDebts"
+             Title="Search in patients debts"
+              FlowDirection="LeftToRight"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="5"></Setter>
+                <Setter Property="Margin" Value="2"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#191919}" />
+            </Style>
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+    <ListView x:Name="VisitsGridView" Margin="10" SeparatorColor="Blue" HasUnevenRows="True" ItemAppearing="Grid_ItemAppearing">
+        <ListView.Header>
+
+            <StackLayout Orientation="Vertical">
+
+
+
+
+                <Frame>
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout>
+                            <Entry x:Name="SearchInVisitsTB"  HorizontalOptions="FillAndExpand" WidthRequest="170" Placeholder="Search by name ..."></Entry>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
+                <StackLayout>
+                    <Button x:Name="GetVisitsBtn" Clicked="GetVisitsBtn_Clicked" Text="Search" Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF"></Button>
+                    <Label x:Name="TotalMatchesLabel" Margin="0,10,0,0"></Label>
+
+                    <StackLayout x:Name="TotalRemainingCostStack" IsVisible="False" Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Text="Total debts costs:"></Label>
+                        <Label x:Name="TotalRemainingCostLK" FontAttributes="Bold" TextColor="Red"></Label>
+                    </StackLayout>
+
+                </StackLayout>
+
+            </StackLayout>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Orientation="Vertical" Margin="3">
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Visits_Tab"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+
+                        <StackLayout>
+                            <Label Text="{Binding Name}" Style="{StaticResource PatientNameStyle}"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="{Binding BirthDateString}" FontSize="Medium" HorizontalOptions="Start" TextColor="#503026" />
+                            <Label Text="{Binding Gender}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="Center" TextColor="#503026" />
+                            <Label Text="{Binding MaritalStatus}" Margin="15,0,0,0"  FontSize="Medium" HorizontalOptions="End" TextColor="#503026" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Job}" FontSize="Small" TextColor="#503026" />
+                            <Label Text="{Binding Address}" Margin="10,0,0,0" FontSize="Small" TextColor="#503026" />
+                            <Label Text="{Binding PhoneNumber}" Margin="10,0,0,0"  FontSize="Small" TextColor="#503026" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Cost:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding TotalCost}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Discount:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding TotalDiscount}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Final cost:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding TotalFinalCost}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Paid cost:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding TotalPaid}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Remaining cost:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding PatientDebt}" FontAttributes="Bold" TextColor="Red" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Date:" HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding LastVisitDate, StringFormat='{0:yyyy-MM-dd}'}" FontAttributes="Bold" HorizontalOptions="FillAndExpand"></Label>
+                        </StackLayout>
+
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        <ListView.Footer>
+            <StackLayout>
+                <Image  x:Name="LoadingImg" HeightRequest="40" WidthRequest="40" Source="Loading.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+            </StackLayout>
+        </ListView.Footer>
+    </ListView>
+
+
+
+
+</ContentPage>

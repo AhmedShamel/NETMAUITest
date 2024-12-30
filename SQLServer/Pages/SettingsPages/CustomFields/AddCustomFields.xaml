@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.SettingsPages.CustomFields.AddCustomFields"
+             Title="Add Custom Fields"
+              FlowDirection="LeftToRight"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="2"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#191919}" />
+            </Style>
+
+            <Style x:Key="InfoLabelsHidden" TargetType="Label">
+                <Setter Property="IsVisible" Value="False"></Setter>
+            </Style>
+
+            <Style x:Key="InfoLabelsShown" TargetType="Label">
+                <Setter Property="IsVisible" Value="True"></Setter>
+            </Style>
+
+            <Style x:Key="LabelInfo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                <Setter Property="Margin" Value="0,10,0,0"></Setter>
+            </Style>
+
+
+            <Style x:Key="PickersHidden" TargetType="Picker">
+                <Setter Property="IsVisible" Value="False"></Setter>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Margin" Value="1"></Setter>
+            </Style>
+
+            <Style x:Key="PickersShown" TargetType="Picker">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="Margin" Value="1"></Setter>
+            </Style>
+
+            <Style x:Key="EntryHidden" TargetType="Entry">
+                <Setter Property="IsVisible" Value="False"></Setter>
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value="1"></Setter>
+            </Style>
+
+            <Style x:Key="ErrorLabel" TargetType="Label">
+                <Setter Property="IsVisible" Value="False"></Setter>
+                <Setter Property="TextColor" Value="Red"></Setter>
+            </Style>
+            <Style x:Key="MenuEditor" TargetType="Editor">
+                <Setter Property="HeightRequest" Value="100"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+
+        <StackLayout Orientation="Vertical" Margin="4">
+
+            <Label Margin="0,0,0,12" FontSize="Large" Text="Add your own fields in the visit page."></Label>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Field Name"></Label>
+                        <Entry x:Name="CutomFieldNameTB" HorizontalOptions="FillAndExpand"></Entry>
+                    </StackLayout>
+                    <Label x:Name="FieldNameError" Style="{StaticResource ErrorLabel}" Text="Required"></Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelInfo}" Text="Number of Sub-Fields"></Label>
+                        <Picker x:Name="NoResultsCB" Style="{DynamicResource PickersShown}" SelectedIndexChanged="NoResultsCB_SelectedIndexChanged">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>1</x:String>
+                                    <x:String>2</x:String>
+                                    <x:String>3</x:String>
+                                    <x:String>4</x:String>
+                                    <x:String>5</x:String>
+                                    <x:String>6</x:String>
+                                    <x:String>7</x:String>
+                                    <x:String>8</x:String>
+                                    <x:String>9</x:String>
+                                    <x:String>10</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+                    <Label x:Name="NoResultsError" Style="{StaticResource ErrorLabel}" Text="Required"></Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame x:Name="ResultTypeFrame" IsVisible="False">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelInfo}" Text="Result Type"></Label>
+
+                        <Picker Style="{DynamicResource PickersShown}" SelectedIndexChanged="ResultTypeCB_SelectedIndexChanged" x:Name="ResultTypeCB">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Integer Number</x:String>
+                                    <x:String>Fractional Number</x:String>
+                                    <x:String>Single Line Text</x:String>
+                                    <x:String>Multiline Line Text</x:String>
+                                    <x:String>Menu</x:String>
+                                    <x:String>Bill</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+
+                    </StackLayout>
+                    <Label x:Name="ResultTypeError" Style="{StaticResource ErrorLabel}" Text="Required"></Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame x:Name="MenuItemsFrame" IsVisible="False">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Menu Items"></Label>
+                        <Editor x:Name="MenuItemsTB" HorizontalOptions="FillAndExpand" HeightRequest="100"></Editor>
+                    </StackLayout>
+                    <Label x:Name="MenuItemsError" Style="{StaticResource ErrorLabel}" Text="The menu items should contains at least two items. Write a string, press enter, and write another string in order to create a menu."></Label>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Style="{StaticResource LabelInfo}" Text="Always Shown" Margin="5" HorizontalOptions="StartAndExpand">
+                            <!--<Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="SetField"/>
+                                    </Label.GestureRecognizers>-->
+                        </Label>
+                        <CheckBox x:Name="AlwaysShownCheckBox" HorizontalOptions="End" Margin="5"></CheckBox>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame x:Name="MultiCustomFieldFrame" IsVisible="False" Margin="1,10,1,1">
+                <StackLayout Orientation="Vertical">
+                    <Label Margin="10" FontSize="Medium" FontAttributes="Bold" Text="Enter Info of sub-fields"></Label>
+
+                    <StackLayout x:Name="MultiCustomFiledStack" Orientation="Vertical">
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 1"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 1"></Entry>
+                                    <Picker Title="Type of sub-field 1" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 2"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 2"></Entry>
+                                    <Picker Title="Type of sub-field 2" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 3"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 3"></Entry>
+                                    <Picker Title="Type of sub-field 3" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 4"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 4"></Entry>
+                                    <Picker Title="Type of sub-field 4" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 5"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 5"></Entry>
+                                    <Picker Title="Type of sub-field 5" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 6"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 6"></Entry>
+                                    <Picker Title="Type of sub-field 6" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 7"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 7"></Entry>
+                                    <Picker Title="Type of sub-field 7" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 8"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 8"></Entry>
+                                    <Picker Title="Type of sub-field 8" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 9"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 9"></Entry>
+                                    <Picker Title="Type of sub-field 9" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <Frame>
+                            <StackLayout Orientation="Vertical">
+                                <Label FontSize="Medium" FontAttributes="Bold" Text="Sub field 10"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry Placeholder="Name of sub-field 10"></Entry>
+                                    <Picker Title="Type of sub-field 10" Style="{StaticResource PickersShown}" SelectedIndexChanged="SubFieldType_Changed">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Integer Number</x:String>
+                                                <x:String>Fractional Number</x:String>
+                                                <x:String>Single Line Text</x:String>
+                                                <x:String>Menu</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                </StackLayout>
+                                <StackLayout IsVisible="False">
+                                    <Label Text="Write menu items:"></Label>
+                                    <Editor Style="{DynamicResource MenuEditor}"></Editor>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="SaveCustomFields" Clicked="SaveCutomField_Click" Margin="20,20,20,20" TextColor="White" BackgroundColor="#06AADF" Text="Save"></Button>
+                <Button x:Name="CancelBtn" Text="Cancel" Clicked="CancelBtn_Clicked" Margin="20,20,20,20" IsVisible="False"></Button>
+            </StackLayout>
+            
+            <Image  x:Name="LoadingImg" Source="loadingtwo.gif" HeightRequest="30" WidthRequest="30" HorizontalOptions="Center" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+        </StackLayout>
+
+    </ScrollView>
+
+
+</ContentPage>

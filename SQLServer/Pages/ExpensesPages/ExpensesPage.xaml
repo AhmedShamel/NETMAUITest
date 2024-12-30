@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.ExpensesPages.ExpensesPage"
+             Title="Clinic Expenses"
+             FlowDirection="LeftToRight"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="Picker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+            </Style>
+
+            <Style TargetType="DatePicker">
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand"></Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Header row -->
+            <RowDefinition Height="*"/>
+            <!-- Scrollable content row -->
+        </Grid.RowDefinitions>
+
+
+        <StackLayout Grid.Row="0"
+                Orientation="Vertical">
+            <Button Text="Add expense"
+                    TextColor="White"
+                    BackgroundColor="#8BBF61"
+                    Margin="5"
+                    Clicked="AddExpenseBtn_Click"></Button>
+            <Frame>
+                <StackLayout Orientation="Vertical">
+
+                    <Frame x:Name="WhichUserFrame"
+                            IsVisible="False">
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Select user"
+                                    FontSize="Small"></Label>
+                            <Picker x:Name="WhichUserCB"
+                                    Title="Select user">
+                            </Picker>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame>
+                        <StackLayout Orientation="Vertical">
+                            <Label Text="Select type of expense"
+                                    FontSize="Small"></Label>
+                            <Picker x:Name="TableShowOptions"
+                                    Title="Type of expense ...">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>All expenses</x:String>
+                                        <x:String>Expenses in specific dates</x:String>
+                                        <x:String>Debt</x:String>
+                                        <x:String>Debt in specific dates</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Grid Padding="2"
+                          ColumnDefinitions="*,*">
+
+
+                        <Frame Grid.Column="0" CornerRadius="5" x:Name="FromDateFrame"
+                                IsVisible="False">
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Style="{StaticResource LabelInfo}"
+                                            HorizontalOptions="Start"
+                                            Text="Start date"
+                                            FontSize="Small"></Label>
+                                    <DatePicker x:Name="FromDate"
+                                            HorizontalOptions="FillAndExpand"
+                                            DateSelected="Date_DateSelected">
+                                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                    </DatePicker>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame Grid.Column="1" CornerRadius="5"  x:Name="ToDateFrame"
+                                IsVisible="False">
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Style="{StaticResource LabelInfo}"
+                                            HorizontalOptions="Start"
+                                            Text="End date"
+                                            FontSize="Small"></Label>
+                                    <DatePicker x:Name="ToDate"
+                                            HorizontalOptions="FillAndExpand"
+                                            DateSelected="Date_DateSelected">
+                                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                                    </DatePicker>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                    <Frame>
+                        <Entry x:Name="SearchTB"
+                                Placeholder="Search for expense ..."
+                                TextChanged="SearchTB_TextChanged"></Entry>
+                    </Frame>
+
+                    <Frame>
+                        <StackLayout Orientation="Vertical">
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label x:Name="TotalMatches"
+                                        FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Total Cost: "></Label>
+                                <Label x:Name="TotalExpensesLK"
+                                        FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Total paid cost: "></Label>
+                                <Label x:Name="TotalPaidCostLK"
+                                        FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Total remaining cost: "></Label>
+                                <Label x:Name="TotalRemainingCostLK"
+                                        FontAttributes="Bold"></Label>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+
+                    <Image  x:Name="LoadingImg"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Source="loading.gif"
+                            IsAnimationPlaying="True"
+                            IsVisible="False"></Image>
+
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+
+
+        <CollectionView x:Name="ExpensesGrid"
+                Grid.Row="1"
+                Margin="10"
+                VerticalScrollBarVisibility="Always"
+                Scrolled="ExpensesGrid_Scrolled">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Frame>
+                        <StackLayout Orientation="Vertical"
+                                Margin="3">
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+
+                            <Label Text="{Binding ExpensesInfo}"
+                                    Style="{StaticResource PatientNameStyle}"
+                                    HorizontalOptions="Center"></Label>
+
+                            <Label Text="{Binding DoctorName, StringFormat='Added by: {0}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding ShowDoctorName}"></Label>
+
+                            <Label Text="{Binding Cost,StringFormat='Total cost: {0}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="{Binding PaidCost,StringFormat='Paid cost: {0}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="FillAndExpand"></Label>
+                            <Label Text="{Binding RemainingCost, StringFormat='Remaining cost (Debt): {0}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="FillAndExpand"
+                                    TextColor="DarkRed">
+
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                            Binding="{Binding RemainingCost}"
+                                            Value="0">
+                                        <Setter Property="TextColor"
+                                                Value="{x:Null}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+
+                            </Label>
+
+                            <Label Text="{Binding Notes,StringFormat='Notes: {0}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Start"></Label>
+                            <Label Text="{Binding ExpensesDate,  StringFormat='Date: {0:yyyy-MM-dd}'}"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="FillAndExpand"></Label>
+
+
+                        </StackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.Footer>
+                <Image  x:Name="LoadingFooterImg"
+                        HeightRequest="30"
+                        WidthRequest="30"
+                        Source="loading.gif"
+                        IsAnimationPlaying="True"
+                        IsVisible="False"></Image>
+            </CollectionView.Footer>
+        </CollectionView>
+
+
+    </Grid>
+
+</ContentPage>

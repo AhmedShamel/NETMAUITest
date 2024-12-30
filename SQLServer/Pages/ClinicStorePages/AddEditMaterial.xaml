@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EClinicMaui.SQLServer.Pages.ClinicStorePages.AddEditMaterial"
+              FlowDirection="LeftToRight"
+             >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+
+        <StackLayout Margin="10">
+
+            <Label FontAttributes="Bold" Text="Enter information of expense"></Label>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="MaterialTB" Completed="MaterialTB_Completed" Placeholder="The material ..."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="QuantityTB" HorizontalOptions="FillAndExpand" Keyboard="Numeric" Completed="QuantityTB_Completed" Placeholder="Quantity ....."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="UnitTB" Completed="UnitTB_Completed" Placeholder="Unit ..."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="SingleItemCostTB" HorizontalOptions="FillAndExpand" Keyboard="Numeric" Completed="SingleItemCostTB_Completed" Placeholder="Single item cost ....."></Entry>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <StackLayout>
+                    <Picker x:Name="HasExpiryDateCB" Title="Has expiry date?" SelectedIndexChanged="HasExpiryDateCB_SelectedIndexChanged">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Has expiry date? No</x:String>
+                                <x:String>Has expiry date? Yes</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <Frame x:Name="ExpiryDateFrame" IsVisible="False">
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource LabelInfo}" HorizontalOptions="Start" Text="Date of expense"></Label>
+                    <DatePicker x:Name="ExpiryDateDP">
+                        <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                    </DatePicker>
+                </StackLayout>
+            </Frame>
+
+            <Button x:Name="AddOrSaveBtn" IsVisible="False" Text="Add" TextColor="White" BackgroundColor="#8BBF61" Margin="20"></Button>
+            <Image  x:Name="LoadingImg" HeightRequest="30" WidthRequest="30" Source="loadingtwo.gif" IsAnimationPlaying="True" IsVisible="False"></Image>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
